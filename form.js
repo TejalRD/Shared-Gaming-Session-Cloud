@@ -1,5 +1,3 @@
-//import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
 var firebaseConfig = {
     apiKey: "AIzaSyD19YOr7Ytl_qKIHlyfdJgo3acxUJHpH5Q",
     authDomain: "fir-login-5b1d3.firebaseapp.com",
@@ -9,7 +7,6 @@ var firebaseConfig = {
     appId: "1:550941917039:web:a1a17a8cec0795d2fc329a",
     measurementId: "G-J7VHRBVDW3"
   };
- 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
@@ -23,18 +20,25 @@ var firebaseConfig = {
     const promise = auth.createUserWithEmailAndPassword(email.value,password.value);
     //
     promise.catch(e=>alert(e.message));
-    //alert("SignUp Successfully");
-  
-}
+    alert("SignUp Successfully");
+  }
 
   //signIN function
-  function  signIn()
-  {
-    
-    window.location='http://35.237.20.181:8080/';
-  
-};
+  function  signIn(){
+    var email = document.getElementById("email");
+    var password  = document.getElementById("password");
+    const promise = auth.signInWithEmailAndPassword(email.value,password.value);
+    //promise.catch(e=>alert(e.message));
+    alert("Value of promise: "+promise);
+}
+   
+ //active user to homepage
+  firebase.auth().onAuthStateChanged((user)=>{
+    if(user){
+      var email = user.email;
+      alert("Active user "+email);
 
-
-
- 
+    }else{
+      alert("No Active user Found")
+    }
+  })
